@@ -1,0 +1,14 @@
+mat-card{
+  width:30%;
+  margin-bottom: 1rem;
+  img{
+    height: 20rem;
+  }
+}
+
+.all-products{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}

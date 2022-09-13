@@ -1,0 +1,10 @@
+<mat-toolbar color="primary">
+  <span>Web shop app</span>
+  <div class="basket" routerLink="/basket">
+
+    <mat-icon aria-hidden="false"  fontIcon="shopping-basket" ></mat-icon>
+    <p>Your basket
+      <span  [matBadge]="numOfProducts" matBadgePosition="before" matBadgeColor="accent"></span></p>
+  </div>
+</mat-toolbar>
+
