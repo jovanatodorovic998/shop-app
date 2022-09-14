@@ -27,7 +27,6 @@ export class ProductsEffects {
       mergeMap((actions: any) =>
         this.apiService.getCategories().pipe(
           map((response: any) => {
-            console.log(response);
             return ProductActions.getCategoriesSuccess({ data: response });
           })
         )

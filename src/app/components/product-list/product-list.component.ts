@@ -21,6 +21,7 @@ export class ProductListComponent implements OnInit {
   private originalArray: Product[] = [];
   public filterOption = '';
   public categories$!: Observable<string[]>;
+  public isFilterTypeByTitle = true;
 
   constructor(
     private store: Store<State>,
@@ -37,28 +38,24 @@ export class ProductListComponent implements OnInit {
   }
 
   public searchByValue() {
+    this.isFilterTypeByTitle =true;
     const searchWord = this.searchWord;
     if (searchWord === '') {
       this.allProducts = this.originalArray;
       return;
     }
-    this.allProducts = this.allProducts.filter((item: Product) => {
-      return item.title
-        .toLowerCase()
-        .includes(searchWord.trim().toLocaleLowerCase());
-    });
+    this.filter(searchWord)
+
   }
 
-  public filter() {
+  public filterByCategory() {
+    this.isFilterTypeByTitle =false
+    const categoryValue = this.filterOption;
     this.allProducts = this.originalArray;
     if (this.filterOption === undefined) {
       return;
     }
-    this.allProducts = this.allProducts.filter((item: Product) => {
-      return item.category
-        .toLowerCase()
-        .includes(this.filterOption.trim().toLocaleLowerCase());
-    });
+    this.filter(categoryValue);
   }
 
   private getCategories() {
@@ -67,5 +64,14 @@ export class ProductListComponent implements OnInit {
 
   public onAddToBasket(product: any) {
     this.productService.add(product);
+  }
+
+  filter(searchWord:string){
+    const searchBy = this.isFilterTypeByTitle ?  'title' : 'category';
+    this.allProducts = this.allProducts.filter((item: Product) => {
+      return item[searchBy]
+        .toLowerCase()
+        .includes(searchWord.trim().toLocaleLowerCase());
+    });
   }
 }
