@@ -1,7 +1,32 @@
-<form class="search-form">
-  <mat-form-field class="search-full-width"  appearance="fill">
+<div class="search-filter">
+  <mat-form-field class="search-full-width" appearance="fill">
     <mat-label>Search</mat-label>
-    <input matInput placeholder="search" >
+    <input
+      matInput
+      placeholder="search"
+      [(ngModel)]="searchWord"
+      (change)="searchByValue()"
+    />
   </mat-form-field>
-</form>
-<app-single-product [allProducts]="allProducts"></app-single-product>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Category</mat-label>
+    <mat-select
+      required
+      [(ngModel)]="filterOption"
+      (selectionChange)="filter()"
+    >
+      <mat-option>--</mat-option>
+      <mat-option
+        *ngFor="let category of categories$ | async"
+        [value]="category"
+      >
+        {{ category }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<app-single-product
+  [allProducts]="allProducts"
+  (addClicked)="onAddToBasket($event)"
+></app-single-product>
