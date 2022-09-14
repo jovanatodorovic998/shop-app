@@ -1,20 +1,23 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ProductsService} from "../../../sahred/services/products.service";
-
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Product } from 'src/app/sahred/models/product.model';
+import { State } from 'src/app/sahred/store';
+import { ProductsService } from '../../../sahred/services/products.service';
+import * as ProductActions from '../../../sahred/store/product.action';
 @Component({
   selector: 'app-single-product',
   templateUrl: './single-product.component.html',
-  styleUrls: ['./single-product.component.scss']
+  styleUrls: ['./single-product.component.scss'],
 })
 export class SingleProductComponent implements OnInit {
-  @Input() allProducts:any;
+  @Input() allProducts!: Product[];
+  @Output() addClicked = new EventEmitter<Product>();
 
-  constructor(private productService: ProductsService) { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-  add(product:any){
-    this.productService.addToBasket(product);
+  ngOnInit(): void {}
 
+  public add(product: Product) {
+    this.addClicked.emit(product);
   }
 }
