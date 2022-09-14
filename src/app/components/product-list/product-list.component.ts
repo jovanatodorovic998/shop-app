@@ -16,10 +16,10 @@ import { ProductsService } from 'src/app/sahred/services/productsService/product
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
-  public allProducts!: Product[];
+  public allProducts: Product[] = [];
   public searchWord: string = '';
-  private originalArray!: Product[];
-  public filterOption!: string;
+  private originalArray: Product[] = [];
+  public filterOption = '';
   public categories$!: Observable<string[]>;
 
   constructor(

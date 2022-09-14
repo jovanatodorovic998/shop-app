@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ApiService } from '../apiService/api.service';
 import { BehaviorSubject } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -9,7 +9,7 @@ import { Product } from '../../models/product.model';
 @Injectable({
   providedIn: 'root',
 })
-export class ProductsService implements OnInit {
+export class ProductsService  {
   productsInBasket: Product[] = [];
   numberOfProductsInBasket = new BehaviorSubject<number>(0);
   number = 0;
@@ -18,11 +18,8 @@ export class ProductsService implements OnInit {
 
   constructor(private apiService: ApiService, private store: Store<State>) {}
 
-  ngOnInit(): void {}
-
   add(product: Product) {
-    this.pushToBasket(product);
-    this.store.dispatch(ProductActions.addProducts({ data: this.product }));
+    this.store.dispatch(ProductActions.addProducts({ data: product }));
   }
 
   remove(productId: number) {
@@ -37,8 +34,5 @@ export class ProductsService implements OnInit {
     localStorage.setItem('products', products);
   }
 
-  pushToBasket(product: Product) {
-    this.product = Object.assign([], this.product);
-    this.product.push(product);
-  }
+
 }

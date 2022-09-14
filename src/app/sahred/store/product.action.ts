@@ -2,7 +2,7 @@ import { createAction, props } from '@ngrx/store';
 import { Product } from '../models/product.model';
 
 //GET PRODUCT ACTIONS
-export const getAllPoducts = createAction('[Products] Get all products');
+export const getAllProducts = createAction('[Products] Get all products');
 
 export const getAllProductsSuccess = createAction(
   '[Products] Get all products products success',
@@ -33,12 +33,12 @@ export const deleteProductFailure = createAction(
 //ADD PRODUCT ACTIONS
 export const addProducts = createAction(
   '[Products] Add products',
-  props<{ data: any[] }>()
+  props<{ data: Product }>()
 );
 
 export const addProductsSuccess = createAction(
   '[Products] Add products success',
-  props<{ data: Product[] }>()
+  props<{ data: Product }>()
 );
 
 export const addProductsFailure = createAction(

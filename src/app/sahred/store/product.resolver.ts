@@ -7,7 +7,7 @@ import {
 import { Store } from '@ngrx/store';
 import { State } from '../store';
 import { finalize, first, tap } from 'rxjs/operators';
-import { getAllPoducts } from './product.action';
+import { getAllProducts } from './product.action';
 
 @Injectable()
 export class ProductResolver implements Resolve<any> {
@@ -19,7 +19,7 @@ export class ProductResolver implements Resolve<any> {
       tap(() => {
         if (!this.loading) {
           this.loading = true;
-          this.store.dispatch(getAllPoducts());
+          this.store.dispatch(getAllProducts());
         }
       }),
       first(),
