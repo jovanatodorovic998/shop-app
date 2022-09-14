@@ -8,7 +8,7 @@ import {
 } from '../../sahred/store/product.selectors';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/sahred/models/product.model';
-import { ProductsService } from 'src/app/sahred/services/products.service';
+import { ProductsService } from 'src/app/sahred/services/productsService/products.service';
 
 @Component({
   selector: 'app-product-list',

@@ -8,7 +8,7 @@ import {
   numberOfProductsInBasket,
   priceOfProductsInBasket,
 } from 'src/app/sahred/store/product.selectors';
-import { ProductsService } from '../../sahred/services/products.service';
+import { ProductsService } from '../../sahred/services/productsService/products.service';
 
 @Component({
   selector: 'app-shopping-basket',
@@ -17,7 +17,6 @@ import { ProductsService } from '../../sahred/services/products.service';
 })
 export class ShoppingBasketComponent implements OnInit {
   public productsInBasket: Product[] = [];
-  public numberOfProductsInCart = 0;
   public savedProducts!: Product[];
   public allProductsInBasket!: Product[];
   public isSaved!: boolean;
@@ -30,7 +29,6 @@ export class ShoppingBasketComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.allProductsInBasket);
     this.store.pipe(select(getProductsInBAsket)).subscribe((data) => {
       this.productsInBasket = data;
       this.getSavedProducts();

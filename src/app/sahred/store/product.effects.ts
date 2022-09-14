@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as ProductActions from '../store/product.action';
-import { map, mergeMap, tap } from 'rxjs';
-import { ApiService } from '../services/api.service';
+import { map, mergeMap} from 'rxjs';
+import { ApiService } from '../services/apiService/api.service';
 
 @Injectable()
 export class ProductsEffects {

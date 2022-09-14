@@ -3,7 +3,6 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { State } from 'src/app/sahred/store';
 import { numberOfProductsInBasket } from 'src/app/sahred/store/product.selectors';
-import { ProductsService } from '../../sahred/services/products.service';
 
 @Component({
   selector: 'app-header',

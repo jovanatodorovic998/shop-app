@@ -1,10 +1,10 @@
 import { Injectable, OnInit } from '@angular/core';
-import { ApiService } from './api.service';
+import { ApiService } from '../apiService/api.service';
 import { BehaviorSubject } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { State } from '../store';
-import * as ProductActions from '../store/product.action';
-import { Product } from '../models/product.model';
+import { State } from '../../store';
+import * as ProductActions from '../../store/product.action';
+import { Product } from '../../models/product.model';
 
 @Injectable({
   providedIn: 'root',
