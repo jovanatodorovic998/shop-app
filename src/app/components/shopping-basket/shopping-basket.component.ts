@@ -1,42 +1,61 @@
 import { Component, OnInit } from '@angular/core';
-import {Product, ProductsService} from "../../sahred/services/products.service";
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Product } from 'src/app/sahred/models/product.model';
+import { State } from 'src/app/sahred/store';
+import {
+  getProductsInBAsket,
+  numberOfProductsInBasket,
+  priceOfProductsInBasket,
+} from 'src/app/sahred/store/product.selectors';
+import { ProductsService } from '../../sahred/services/products.service';
 
 @Component({
   selector: 'app-shopping-basket',
   templateUrl: './shopping-basket.component.html',
-  styleUrls: ['./shopping-basket.component.scss']
+  styleUrls: ['./shopping-basket.component.scss'],
 })
 export class ShoppingBasketComponent implements OnInit {
-  public productsInBasket : Product[] = [];
-  public numberOfProductsInCart= 0;
-  public price!:number;
-  savedProducts!:any;
-  isSaved!:boolean;
-  constructor(private productService: ProductsService) { }
+  public productsInBasket: Product[] = [];
+  public numberOfProductsInCart = 0;
+  public savedProducts!: Product[];
+  public allProductsInBasket!: Product[];
+  public isSaved!: boolean;
+  public numOfProducts$!: Observable<number>;
+  public priceOfProducts$!: Observable<number>;
+
+  constructor(
+    private productService: ProductsService,
+    private store: Store<State>
+  ) {}
 
   ngOnInit(): void {
+    console.log(this.allProductsInBasket);
+    this.store.pipe(select(getProductsInBAsket)).subscribe((data) => {
+      this.productsInBasket = data;
+      this.getSavedProducts();
+      if (this.savedProducts) {
+        this.allProductsInBasket = this.productsInBasket.concat(
+          this.savedProducts
+        );
+        this.productsInBasket = this.allProductsInBasket;
+      }
+    });
+
+    this.numOfProducts$ = this.store.pipe(select(numberOfProductsInBasket));
+    this.priceOfProducts$ = this.store.pipe(select(priceOfProductsInBasket));
+  }
+
+  public remove(productId: number) {
+    this.productService.remove(productId);
+  }
+
+  public save() {
+    this.isSaved = true;
+    this.productService.save();
+  }
+
+  public getSavedProducts() {
     this.savedProducts = JSON.parse(localStorage.getItem('products')!);
-   if (this.savedProducts){
-     this.productsInBasket = this.savedProducts;
-     return;
-   }
-   this.productsInBasket = this.productService.productsInBasket;
-   this.productService.numberOfProductsInBasket.subscribe((data)=>{
-     this.numberOfProductsInCart = data
-   })
-    this.price = this.productService.price;
   }
-
-  remove(productId: number){
-    this.productsInBasket = this.productsInBasket.filter((product) => product.id !== productId)
-    this.productService.numberOfProductsInBasket.next(this.productsInBasket.length);
-}
-  save(productsInBasket:Product[]){
-    this.isSaved =true;
-    let products= JSON.stringify(productsInBasket)
-    localStorage.setItem('products',products);
-  }
-
-
-
 }
