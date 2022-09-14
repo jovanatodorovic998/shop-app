@@ -1,24 +1,22 @@
-mat-card{
-  width:30%;
+mat-card {
+  width: 30%;
   margin-bottom: 1rem;
-  img{
+  img {
     height: 20rem;
   }
 }
 
-.all-products{
+.all-products {
   display: flex;
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
 }
 
-.search-form {
-  min-width: 150px;
-  max-width: 500px;
+.search-filter {
   width: 100%;
-}
-
-.search-full-width {
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }

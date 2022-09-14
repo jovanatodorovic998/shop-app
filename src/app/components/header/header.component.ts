@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductsService} from "../../sahred/services/products.service";
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { State } from 'src/app/sahred/store';
+import { numberOfProductsInBasket } from 'src/app/sahred/store/product.selectors';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  numOfProducts =0;
-  constructor(private productService: ProductsService) { }
+  public numOfProducts$!: Observable<number>;
+  constructor(private store: Store<State>) {}
 
   ngOnInit(): void {
-    this.productService.numberOfProductsInBasket.subscribe((data)=>{
-      this.numOfProducts = data
-    })
+    this.numOfProducts$ = this.store.pipe(select(numberOfProductsInBasket));
   }
-
 }

@@ -1,26 +1,29 @@
-import {Injectable} from "@angular/core";
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from "@angular/router";
-import {Store} from "@ngrx/store";
-import {State} from "../store";
-import {finalize, first, tap} from "rxjs/operators";
-import {getAllPoducts} from "./product.action";
-
+import { Injectable } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { Store } from '@ngrx/store';
+import { State } from '../store';
+import { finalize, first, tap } from 'rxjs/operators';
+import { getAllProducts } from './product.action';
 
 @Injectable()
-export class ProductResolver implements Resolve<any>{
+export class ProductResolver implements Resolve<any> {
   loading = false;
-  constructor(private store:Store<State>) {
-  }
+  constructor(private store: Store<State>) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
     return this.store.pipe(
       tap(() => {
-        if(!this.loading){
-          this.loading=true;
-          console.log('odje')
-          this.store.dispatch(getAllPoducts())
+        if (!this.loading) {
+          this.loading = true;
+          this.store.dispatch(getAllProducts());
         }
-      }),first(),
-      finalize(()=>this.loading =false))
+      }),
+      first(),
+      finalize(() => (this.loading = false))
+    );
   }
 }
